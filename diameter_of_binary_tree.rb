@@ -30,5 +30,15 @@ def diameter_of_binary_tree(root)
 end
 
 =begin
+known observations:
+  longest path is between 2 leaf nodes
+  Nodes are onnected by a parent node and 2 children
+  Thus: longest path would consist of a node, longest left branch, longest right branch
 
+  Goal? Find node where node.left and node.right is maximized
+    Apply: DFS to count each node's branch lengths
+
+  Leetcode solution:
+
+  
 =end

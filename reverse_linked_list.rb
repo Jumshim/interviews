@@ -44,17 +44,15 @@ def print(head)
 end 
 
 def reverse_linked_list(head)
-  reversed_list = LinkedList.new
-  values = []
-  node = head
-  while !node.nil? 
-    values.push(node.value)
-    node = node.next
+  head_node = head
+  current_node = head
+  while !current_node.next.nil?
+    temp = current_node.next
+    current_node.next = current_node.next.next
+    temp.next = head_node
+    head_node = temp
   end
-  while !values.empty?
-    reversed_list.add(values.pop)
-  end
-  return reversed_list.head
+  head_node
 end
 
 example_1 = LinkedList.new
@@ -64,4 +62,55 @@ example_1.add(3)
 example_1.add(4)
 example_1.add(5)
 
-print(reverse_linked_list(example_1.head))
+print("example_1: #{reverse_linked_list(example_1.head)}")
+
+example_2 = LinkedList.new
+example_2.add(1)
+example_2.add(2)
+
+
+=begin
+
+1 -> 2 -> 3 -> 4 -> 5   |    5 -> 4 -> 3 -> 2 -> 1
+
+
+1 -> 2   |  2 -> 1
+
+info we have: 
+head node, node has a value and a next
+we don't care about the value
+
+we can create temporary nodes and delete other nodes
+
+if we want to reverse, we should also try to not use more memory and make a new linked list
+
+head_node = head
+current_node = head
+temp = current_node.next
+current_node.next = current_node.next&.next
+temp.next = head_node
+head_node = temp
+
+1 -> 2 -> 3 -> 4 -> 5
+ 
+current_node = 1
+temp = 2
+1 -> 3
+2 -> 1
+2 -> 1 -> 3 -> 4 -> 5
+
+temp = 3
+1 -> 4
+3->2
+3->2->1->4->5
+
+head_node = 3
+current_node = 1
+temp = 4
+1 -> 5
+4->3
+head = 4
+4->3->2->1->5
+
+
+=end
